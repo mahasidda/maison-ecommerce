@@ -1,0 +1,36 @@
+.info-page { padding: 4rem 2rem; min-height: 70vh; }
+.info-container { max-width: 860px; margin: 0 auto; }
+.info-title { font-family: var(--serif); font-size: 42px; font-weight: 300; margin-bottom: .75rem; }
+.info-subtitle { color: var(--muted); font-size: 15px; margin-bottom: 3rem; }
+.info-section-title { font-family: var(--serif); font-size: 24px; font-weight: 400; margin-bottom: 1.25rem; }
+.info-card { background: var(--white); border: 1px solid var(--sand); border-radius: var(--radius); padding: 2rem; margin-bottom: 1.5rem; }
+.info-card p { font-size: 14px; color: var(--muted); line-height: 1.8; }
+.info-list { list-style: none; display: flex; flex-direction: column; gap: .6rem; font-size: 14px; color: var(--muted); line-height: 1.8; }
+.info-tip { background: #fef9f0; border-left: 3px solid var(--accent); padding: 1rem 1.5rem; font-size: 13px; color: var(--muted); margin-top: 1.5rem; border-radius: 0 var(--radius) var(--radius) 0; }
+
+.size-table { width: 100%; border-collapse: collapse; font-size: 14px; margin-bottom: 1rem; }
+.size-table th { background: var(--cream); padding: .75rem 1rem; text-align: left; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); border-bottom: 2px solid var(--sand); }
+.size-table td { padding: .75rem 1rem; border-bottom: 1px solid var(--sand); color: var(--ink); }
+.size-table tr:last-child td { border-bottom: none; }
+.size-table tr:hover td { background: #faf8f4; }
+
+.contact-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 3rem; align-items: start; }
+.contact-details { display: flex; flex-direction: column; gap: 1.5rem; }
+.contact-item { display: flex; gap: 1rem; align-items: flex-start; }
+.contact-icon { font-size: 22px; margin-top: .1rem; }
+.contact-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: .25rem; }
+.contact-value { font-size: 14px; color: var(--ink); line-height: 1.6; }
+.contact-form { background: var(--white); border: 1px solid var(--sand); padding: 2rem; border-radius: var(--radius); }
+
+.cat-img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+  transition: transform .6s cubic-bezier(.25,.46,.45,.94);
+}
+.cat-card:hover .cat-img { transform: scale(1.06); }
+
+@media (max-width: 768px) {
+  .info-page { padding: 2rem 1rem; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .footer-inner { grid-template-columns: 1fr; gap: 1.5rem; }
+}
