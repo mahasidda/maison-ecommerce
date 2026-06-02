@@ -1,10 +1,15 @@
 const nodemailer = require('nodemailer');
 
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  host: 'smtp.gmail.com',
+  port: 587,
+  secure: false,
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
+  },
+  tls: {
+    rejectUnauthorized: false,
   },
 });
 
@@ -106,7 +111,7 @@ const sendOrderDelivered = async (order, userEmail, userName) => {
           <div style="text-align:center;margin-bottom:25px">
             <div style="font-size:50px">📦✅</div>
             <h2 style="font-family:Georgia,serif;font-weight:300;color:#0f0e0d">Order Delivered!</h2>
-            <p style="color:#7a7570;font-size:15px;line-height:1.7">Hi ${userName}, your order has been successfully delivered. We hope you love your new items!</p>
+            <p style="color:#7a7570;font-size:15px;line-height:1.7">Hi ${userName}, your order has been successfully delivered!</p>
           </div>
           <div style="background:#f7f4ef;padding:15px 20px;border-left:3px solid #27ae60;margin:25px 0">
             <p style="margin:0;font-size:13px;color:#7a7570;text-transform:uppercase">Order ID</p>
@@ -216,11 +221,7 @@ const sendDeliveryOtp = async (order, userEmail, userName, otp) => {
           <div style="text-align:center;margin-bottom:25px">
             <div style="font-size:50px">🚚🔐</div>
             <h2 style="font-family:Georgia,serif;font-weight:300;color:#0f0e0d">Your Delivery OTP</h2>
-            <p style="color:#7a7570;font-size:15px;line-height:1.7">Hi ${userName}, your order is out for delivery! Share this OTP with the delivery person to confirm delivery.</p>
-          </div>
-          <div style="background:#f7f4ef;padding:15px 20px;border-left:3px solid #b5833a;margin:25px 0">
-            <p style="margin:0;font-size:13px;color:#7a7570;text-transform:uppercase">Order ID</p>
-            <p style="margin:5px 0 0;font-size:18px;font-weight:600;color:#0f0e0d">#${order._id.toString().slice(-8).toUpperCase()}</p>
+            <p style="color:#7a7570;font-size:15px;line-height:1.7">Hi ${userName}, your order is out for delivery! Share this OTP with the delivery person.</p>
           </div>
           <div style="background:#fff8f0;border:2px solid #b5833a;padding:30px;margin:25px 0;text-align:center;border-radius:8px">
             <p style="color:#7a7570;font-size:13px;margin:0 0 10px;text-transform:uppercase;letter-spacing:0.1em">Your Delivery OTP</p>
