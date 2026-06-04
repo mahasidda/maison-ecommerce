@@ -7,6 +7,7 @@ const orderItemSchema = new mongoose.Schema({
   quantity: Number,
   size: String,
   color: String,
+  image: String,
 });
 
 const orderSchema = new mongoose.Schema({
@@ -29,6 +30,8 @@ const orderSchema = new mongoose.Schema({
     enum: ['pending', 'confirmed', 'shipped', 'delivered', 'cancelled'],
     default: 'pending',
   },
+  deliveryOtp: { type: String, default: '' },
+  otpVerified: { type: Boolean, default: false },
 }, { timestamps: true });
 
 module.exports = mongoose.model('Order', orderSchema);

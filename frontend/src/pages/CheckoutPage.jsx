@@ -64,6 +64,7 @@ export default function CheckoutPage() {
       quantity: i.quantity,
       size: i.size,
       color: i.color,
+      image: i.product.images?.[0] || '',
     }));
     await placeOrder({
       shippingAddress: form,
@@ -82,7 +83,6 @@ export default function CheckoutPage() {
   const handleRazorpay = async () => {
     const scriptLoaded = await loadRazorpayScript();
     if (!scriptLoaded) { toast.error('Razorpay failed to load'); return; }
-
     try {
       const { data } = await createRazorpayOrder({ amount: grandTotal });
       const options = {
@@ -156,7 +156,6 @@ export default function CheckoutPage() {
                 value={form[f.name]} onChange={handleChange} required />
             </div>
           ))}
-
           <div className="form-group">
             <label className="form-label">Payment Method</label>
             <div className="payment-options">
@@ -172,7 +171,6 @@ export default function CheckoutPage() {
               </label>
             </div>
           </div>
-
           <button className="btn btn-accent" type="submit" disabled={loading}
             style={{ width: '100%', justifyContent: 'center', padding: '1rem' }}>
             {loading ? 'Processing...' : paymentMethod === 'Razorpay'
@@ -184,9 +182,15 @@ export default function CheckoutPage() {
           <h3>Order Summary</h3>
           {cart.items.map((item) => (
             <div className="checkout-item" key={item._id}>
-              <div>
-                <div className="checkout-item-name">{item.product?.name}</div>
-                <div className="checkout-item-meta">Qty: {item.quantity} {item.size && `· ${item.size}`}</div>
+              <div style={{ display: 'flex', gap: '.75rem', alignItems: 'center' }}>
+                {item.product?.images?.[0] && (
+                  <img src={item.product.images[0]} alt={item.product.name}
+                    style={{ width: 50, height: 60, objectFit: 'cover', borderRadius: 4 }} />
+                )}
+                <div>
+                  <div className="checkout-item-name">{item.product?.name}</div>
+                  <div className="checkout-item-meta">Qty: {item.quantity} {item.size && `· ${item.size}`}</div>
+                </div>
               </div>
               <div>₹{(item.product?.price * item.quantity).toLocaleString()}</div>
             </div>
@@ -200,24 +204,15 @@ export default function CheckoutPage() {
             <span>{shipping === 0 ? <span style={{ color: 'var(--success)' }}>Free</span> : `₹${shipping}`}</span>
           </div>
 
-          {/* Coupon Section */}
           <div className="coupon-section">
             <label className="form-label">Coupon Code</label>
             {!couponApplied ? (
               <div className="coupon-input-wrap">
-                <input
-                  className="form-input"
-                  placeholder="Enter coupon code"
-                  value={couponCode}
-                  onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
-                  style={{ flex: 1 }}
-                />
-                <button
-                  type="button"
-                  className="btn btn-outline btn-sm"
-                  onClick={handleApplyCoupon}
-                  disabled={couponLoading}
-                >
+                <input className="form-input" placeholder="Enter coupon code"
+                  value={couponCode} onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
+                  style={{ flex: 1 }} />
+                <button type="button" className="btn btn-outline btn-sm"
+                  onClick={handleApplyCoupon} disabled={couponLoading}>
                   {couponLoading ? '...' : 'Apply'}
                 </button>
               </div>

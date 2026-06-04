@@ -20,9 +20,7 @@ function OrderTimeline({ status }) {
       </div>
     );
   }
-
   const currentIdx = STATUS_STEPS.indexOf(status);
-
   return (
     <div className="timeline">
       {STATUS_STEPS.map((step, idx) => {
@@ -70,8 +68,6 @@ export default function OrdersPage() {
       ) : (
         orders.map((order) => (
           <div className="order-card" key={order._id}>
-
-            {/* Order Header */}
             <div className="order-header" onClick={() => setExpanded(expanded === order._id ? null : order._id)}>
               <div>
                 <div className="order-id">Order #{order._id.slice(-8).toUpperCase()}</div>
@@ -90,19 +86,24 @@ export default function OrdersPage() {
               </div>
             </div>
 
-            {/* Order Timeline */}
             <div className="order-timeline-wrap">
               <OrderTimeline status={order.status} />
             </div>
 
-            {/* Order Details — Expandable */}
             {expanded === order._id && (
               <div className="order-details">
                 <div className="order-items">
                   <h4>Items Ordered</h4>
                   {order.items.map((item, i) => (
                     <div className="order-item" key={i}>
-                      <div className="order-item-img" style={{ background: '#f0ece6' }} />
+                      <div className="order-item-img-wrap">
+                        {item.image ? (
+                          <img src={item.image} alt={item.name}
+                            style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 4 }} />
+                        ) : (
+                          <div style={{ width: '100%', height: '100%', background: '#f0ece6', borderRadius: 4 }} />
+                        )}
+                      </div>
                       <div className="order-item-info">
                         <div className="order-item-name">{item.name}</div>
                         <div className="order-item-meta">
